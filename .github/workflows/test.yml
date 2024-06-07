@@ -26,5 +26,7 @@ jobs:
           target-dir: samples_bad
           continue-on-error: true
       - name: Check on failures
-        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.test_failure.outcome }} != 'failure')
-        run: echo ${{ steps.test_failure.outcome }}
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.test_failure.outcome }} == 'failure')
+        run: |
+          echo "Validation failed as expected!"
+          exit 0
