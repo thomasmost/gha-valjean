@@ -30,6 +30,7 @@ export async function run(): Promise<void> {
         const files = fs.readdirSync(targetDir);
         for (const file of files) {
           const content = fs.readFileSync(`${targetDir}/${file}`, "utf-8");
+          console.log(`Validating ${targetDir}/${file}...`);
           const valid = validate(JSON.parse(content));
           if (!valid) {
             throw "Invalid schema: " + JSON.stringify(validate.errors);
