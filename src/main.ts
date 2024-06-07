@@ -39,6 +39,7 @@ export async function run(): Promise<void> {
           console.log(`Validating ${targetDir}/${file}...`);
           const valid = validate(JSON.parse(content));
           if (!valid) {
+            console.error(`Validation failed for ${targetDir}/${file} due to errors: ${JSON.stringify(validate.errors)}`);
             throw "Invalid schema: " + JSON.stringify(validate.errors);
           }
         }
@@ -47,6 +48,7 @@ export async function run(): Promise<void> {
     const time = new Date().toTimeString();
     core.setOutput("time", time);
   } catch (error: any) {
+    console.error(`Action failed due to errors: ${JSON.stringify(error)}`);
     // Handle errors and indicate failure
     core.setFailed(error.message);
   }
