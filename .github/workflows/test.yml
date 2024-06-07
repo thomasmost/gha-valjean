@@ -2,6 +2,7 @@ name: Test
 on: push
 jobs:
   test:
+    name: Test Valid
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -11,4 +12,19 @@ jobs:
         with:
           schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
           target-dir: samples
-
+  test_invalid:
+    name: Test Invalid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test Local Action
+        id: test_failure
+        uses: ./
+        with:
+          schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
+          target-dir: samples
+          continue-on-error: true
+      - name: Check on failures
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.test_failure.outcome }} != 'failure')
+        run: exit 1
