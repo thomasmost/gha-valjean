@@ -45,6 +45,7 @@ export async function run(): Promise<void> {
           } else {
             process.stdout.write("\x1b[34mVALID\x1b[89m");
             process.stdout.write("\x1b[0m")
+            process.stdout.write("\n");
           }
         }
       }
