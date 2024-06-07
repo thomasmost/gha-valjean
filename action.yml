@@ -13,6 +13,18 @@ inputs:
   target-dir:
     description: "the directory (or directories, comma separated) containing the json files to validate"
     required: true
+  all-errors:
+    description: "enable allErrors on AJV validator"
+    required: false
+    default: "false"
+  ajv-strict:
+    description: "enable AJV's strict mode, which does not adhere to the JSON Schema spec"
+    required: false
+    default: "false"
+  draft-version:
+    description: The draft version to use; supports 2019 or 2020
+    required: false
+    default: "2020"
 
 runs:
   using: "node20"

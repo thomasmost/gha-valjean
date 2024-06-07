@@ -1,8 +1,9 @@
 import * as core from "@actions/core";
 
 import * as fs from "fs";
-import Ajv from "ajv"
-const ajv = new Ajv({allErrors: true})
+import Ajv2019 from "ajv"
+import Ajv2020 from 'ajv/dist/2020'
+
 
 
 /**
@@ -14,6 +15,11 @@ export async function run(): Promise<void> {
     // Fetch the value of the input 'who-to-greet' specified in action.yml
     const schemaUrl = core.getInput("schema-url");
     const targetDir = core.getInput("target-dir");
+    const allErrors = core.getInput("all-errors") === "true";
+    const strict = core.getInput("ajv-strict") === "true";
+    const draftVersion = core.getInput("draft-version");
+
+    const ajv = draftVersion === "2020" ? new Ajv2020({allErrors, strict}) : new Ajv2019({allErrors, strict});
 
     const targetDirs = targetDir.split(",");
 
