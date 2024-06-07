@@ -34,13 +34,6 @@ jobs:
       - name: API Schema
         uses: thomasmost/gha-valjean@0.1.0
         with:
-          schema-url: data_objects/api.schema.json
-          out-langs: ts,rs
-      - name: Upload files
-        uses: actions/upload-artifact@v4
-        with:
-          name: bindings
-          path: |
-            ./api.ts
-            ./api.rs
+          schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
+          target-dir: samples
 ```
