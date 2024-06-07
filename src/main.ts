@@ -36,16 +36,21 @@ export async function run(): Promise<void> {
         const files = fs.readdirSync(targetDir);
         for (const file of files) {
           const content = fs.readFileSync(`${targetDir}/${file}`, "utf-8");
-          console.log(`Validating ${targetDir}/${file}...`);
+          process.stdout.write(`Validating ${targetDir}/${file}...`);
           const valid = validate(JSON.parse(content));
           if (!valid) {
+            process.stdout.write("\n");
             console.error(`Validation failed for ${targetDir}/${file} due to errors: ${JSON.stringify(validate.errors)}`);
             throw "Invalid schema: " + JSON.stringify(validate.errors);
+          } else {
+            process.stdout.write("\x1b[34mVALID\x1b[89m");
+            process.stdout.write("\x1b[0m")
           }
         }
       }
 
     const time = new Date().toTimeString();
+    process.stdout.write("\n\x1b[34mValidation Completed!\x1b[89m");
     core.setOutput("time", time);
   } catch (error: any) {
     console.error(`Action failed due to errors: ${JSON.stringify(error)}`);
