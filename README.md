@@ -32,9 +32,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: API Schema
-        uses: thomasmost/quicktype-gha@0.1.1
+        uses: thomasmost/gha-valjean@0.1.0
         with:
-          source-file: data_objects/api.schema.json
+          schema-url: data_objects/api.schema.json
           out-langs: ts,rs
       - name: Upload files
         uses: actions/upload-artifact@v4
