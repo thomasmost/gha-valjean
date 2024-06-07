@@ -1,0 +1,33 @@
+{
+  "name": "gha-valjean",
+  "version": "0.3.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@9.1.4",
+  "scripts": {
+    "all": "pnpm run format:write && pnpm run build",
+    "build": "tsc && ncc build lib/index.js --minify",
+    "format:check": "pnpm exec prettier --check .",
+    "format:write": "pnpm exec prettier --write .",
+    "prepare": "husky install",
+    "test": "pnpm exec jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@vercel/ncc": "^0.38.1",
+    "ajv": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
+}

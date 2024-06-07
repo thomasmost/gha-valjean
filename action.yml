@@ -1,0 +1,19 @@
+name: "Valjean JSON Schema Validator"
+description: "Validate JSON using remote schemas"
+
+branding:
+  label: "Valjean JSON Schema Validator"
+  icon: "book"
+  color: "red"
+
+inputs:
+  schema-url:
+    description: "the url to the JSON schema"
+    required: true
+  target-dir:
+    description: "the directory (or directories, comma separated) containing the json files to validate"
+    required: true
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
