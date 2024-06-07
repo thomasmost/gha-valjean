@@ -24,6 +24,7 @@ export async function run(): Promise<void> {
       console.error("Error fetching schema: ", e);
       throw e;
     }
+    console.log("Validating against schema found at", schemaUrl);
     const validate = ajv.compile(JSON.parse(schema));
       for (const targetDir of targetDirs) {
         const files = fs.readdirSync(targetDir);
