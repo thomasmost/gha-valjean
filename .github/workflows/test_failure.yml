@@ -12,7 +12,7 @@ jobs:
         uses: ./
         with:
           schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
-          target-dir: samples
+          target-dir: samples_bad
       - name: Check that validation failed
         if: failure() && steps.test_failure.outcome == 'failure'
         run: exit 0
