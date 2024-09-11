@@ -1,20 +1,30 @@
-# quicktype-gha
+# gha-valjean
 
-A GitHub Action for generating type bindings from JSON schema files
+A GitHub Action for validating JSON files against a remote schema
+
+On the backend, this uses AJV to perform the validation
 
 ## Inputs
 
-### `source-file`
+### `schema-url`
 
-Schema JSON file to generate type bindings from.
+Url to the remote schema JSON file to validate against
 
-### `out-langs`
+### `target-dir`
 
-Comma-separated list of language extensions to generate bindings for
+Comma-separated list directories to validate
 
-### `out-dir` (optional)
+### `all-errors` (optional)
 
-Directory to output generated bindings to
+Enables 'all errors' validation on AJV
+
+### `ajv-strict` (optional)
+
+Enables 'strict mode' in AJV
+
+### `draft-version` (optional)
+
+The JSON schema draft version (defaults to 2019)—only supports '2020' and '2019'
 
 ## Example Usage
 

@@ -4,8 +4,6 @@ import * as fs from "fs";
 import Ajv2019 from "ajv"
 import Ajv2020 from 'ajv/dist/2020'
 
-
-
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.

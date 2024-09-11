@@ -1,17 +1,6 @@
 name: Test
 on: push
 jobs:
-  test:
-    name: Test Valid
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Test Local Action
-        uses: ./
-        with:
-          schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
-          target-dir: samples
   test_invalid:
     name: Test Invalid
     runs-on: ubuntu-latest
@@ -30,3 +19,14 @@ jobs:
         run: |
           echo "Validation failed as expected!"
           exit 0
+  test:
+    name: Test Valid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test Local Action
+        uses: ./
+        with:
+          schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
+          target-dir: samples
