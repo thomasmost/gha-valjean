@@ -15,8 +15,5 @@ jobs:
           target-dir: samples_bad
         continue-on-error: true
       - name: Check that validation did not succeed
-        if: job.steps.test_failure.outcome != 'failure'
-        run: exit 1
-      - name: Succeed if validation failed
-        if: job.steps.test_failure.outcome == 'failure'
+        if: job.steps.test_failure.status == failure()
         run: exit 0
