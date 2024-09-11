@@ -13,7 +13,6 @@ jobs:
         with:
           schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
           target-dir: samples
-        continue-on-error: true
       - name: Check that validation did not succeed
-        if: job.steps.test_failure.status == failure()
+        if: failure() && steps.test_failure.outcome == 'failure'
         run: exit 0
