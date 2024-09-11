@@ -13,9 +13,12 @@ jobs:
         with:
           schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
           target-dir: samples_bad
-      - name: Check that validation failed
-        if: failure() && steps.test_failure.outcome == 'failure'
-        run: exit 0
-      - name: Check that validation did not succeed
-        if: success()
-        run: exit 1
+        continue-on-error: true  # Allow the job to continue even if this step fails
+
+      - name: Check if the previous step failed and pass the job if it did
+        if: failure() || steps.test_failure.outcome == 'failure'
+        run: echo "Expected failure occurred, job will pass."
+
+      - name: Fail the job if the previous step succeeded
+        if: success() || steps.test_failure.outcome == 'success'
+        run: exit 1  # This will fail the job
