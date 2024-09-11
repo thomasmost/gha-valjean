@@ -12,3 +12,25 @@ jobs:
         with:
           schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
           target-dir: samples
+  test_invalid:
+    name: Test Invalid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test Local Action
+        id: test_failure
+        uses: ./
+        with:
+          schema-url: https://raw.githubusercontent.com/thomasmost/gha-valjean/main/schema/example.schema.json
+          target-dir: samples_bad
+        continue-on-error: true  # Allow the job to continue even if this step fails
+
+      - name: Fail the job if the previous step succeeded
+        if: success() || steps.test_failure.outcome == 'success'
+        run: exit 1  # This will fail the job
+
+      - name: Check if the previous step failed and pass the job if it did
+        if: failure() || steps.test_failure.outcome == 'failure'
+        run: echo "Expected failure occurred, job will pass."
+
